@@ -1,3 +1,5 @@
+import * as z from 'zod'
+
 import { SearchInputContainer } from './styles'
 
 export function SearchInput() {
