@@ -1,16 +1,19 @@
+import { IPost } from '../..'
+
 import { PostContainer } from './styles'
 
-export function Post() {
+interface PostProps {
+  post: IPost
+}
+
+export function Post({ post }: PostProps) {
   return (
-    <PostContainer to="/post/1">
+    <PostContainer to={`/post/${post.number}`}>
       <div>
-        <strong>npm: pacotes, pacotes e pacotes</strong>
-        <span>Há 1 dia</span>
+        <strong>{post.title}</strong>
+        <span>{post.created_at}</span>
       </div>
-      <p>
-        npm é uma sigla para Node Package Manager, cuja tradução direta é bem
-        simples: Gerenciador de Pacotes Node.
-      </p>
+      <p>{post.body}</p>
     </PostContainer>
   )
 }
