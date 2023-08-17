@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { api } from '../../../../lib/axios'
 import { ExternalLink } from '../../../../components/ExternalLink'
+import { Spinner } from '../../../../components/Spinner'
 
 import { ProfileContainer, ProfileDetails, ProfilePicture } from './styles'
 
@@ -41,35 +42,41 @@ export function Profile() {
 
   return (
     <ProfileContainer>
-      <ProfilePicture src={profileData.avatar_url} />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <ProfilePicture src={profileData.avatar_url} />
 
-      <ProfileDetails>
-        <header>
-          {profileData.name}
-          <ExternalLink
-            text="Github"
-            href={profileData.html_url}
-            target="_blank"
-          />
-        </header>
-        <p>{profileData.bio}</p>
-        <ul>
-          <li>
-            <FontAwesomeIcon icon={faGithub} />
-            {profileData.login}
-          </li>
-          {profileData?.company && (
-            <li>
-              <FontAwesomeIcon icon={faBuilding} />
-              {profileData.company}
-            </li>
-          )}
-          <li>
-            <FontAwesomeIcon icon={faUserGroup} />
-            {profileData.followers}
-          </li>
-        </ul>
-      </ProfileDetails>
+          <ProfileDetails>
+            <header>
+              {profileData.name}
+              <ExternalLink
+                text="Github"
+                href={profileData.html_url}
+                target="_blank"
+              />
+            </header>
+            <p>{profileData.bio}</p>
+            <ul>
+              <li>
+                <FontAwesomeIcon icon={faGithub} />
+                {profileData.login}
+              </li>
+              {profileData?.company && (
+                <li>
+                  <FontAwesomeIcon icon={faBuilding} />
+                  {profileData.company}
+                </li>
+              )}
+              <li>
+                <FontAwesomeIcon icon={faUserGroup} />
+                {profileData.followers}
+              </li>
+            </ul>
+          </ProfileDetails>
+        </>
+      )}
     </ProfileContainer>
   )
 }
